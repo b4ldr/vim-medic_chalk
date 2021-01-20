@@ -84,7 +84,7 @@ hi link diffRemoved             Statement
 hi link diffLine                PreProc
 hi link diffSubname             Comment
 
-call s:hifg("Normal","#EEEEEE","White",87)
+call s:hifg("Normal","#BBBBBB","LightGrey",85)
 if &background == "light" || has("gui_running")
     hi Normal guibg=Black ctermbg=Black
 else
@@ -118,11 +118,11 @@ call s:hibg("Visual"    ,"#555577","LightBlue",83)
 call s:hibg("VisualNOS" ,"#444444","DarkBlue",81)
 highlight WarningMsg    guifg=Red ctermfg=Red
 highlight Error         ctermbg=DarkRed
-highlight SpellBad      ctermbg=DarkRed
+highlight SpellBad      ctermfg=Red cterm=underline ctermbg=NONE
 " FIXME: Comments
-highlight SpellRare     ctermbg=DarkMagenta
-highlight SpellCap      ctermbg=DarkBlue
-highlight SpellLocal    ctermbg=DarkCyan
+highlight SpellRare     ctermfg=DarkMagenta cterm=underline ctermbg=NONE
+highlight SpellCap      ctermfg=DarkBlue cterm=underline ctermbg=NONE
+highlight SpellLocal    ctermfg=DarkCyan cterm=underline ctermbg=NONE
 
 call s:hibg("Folded"    ,"#110077","DarkBlue",17)
 call s:hifg("Folded"    ,"#aaddee","LightCyan",63)
@@ -153,12 +153,14 @@ hi Identifier cterm=none
 call s:hifg("Comment"        ,"#9933CC","DarkMagenta",34) " 92
 " 26 instead?
 call s:hifg("Constant"       ,"#339999","DarkCyan",21) " 30
-call s:hifg("String"         ,"#66FF00","LightGreen",44,82) " 82
-call s:hifg("Identifier"     ,"#FFCC00","Yellow",72) " 220
+call s:hifg("String"         ,"#33AA00","DarkMagenta", 24,32) " 7
+"call s:hifg("String"         ,"#66FF00","LightGreen",44,82) " 82
+"call s:hifg("Identifier"     ,"#FFCC00","Yellow",72) " 220
+call s:hifg("Identifier"     ,"#44B4CC","DarkCyan",21) " 213
 call s:hifg("Statement"      ,"#FF6600","Brown",68) " 202
 call s:hifg("PreProc"        ,"#AAFFFF","LightCyan",47) " 213
 call s:hifg("Type"           ,"#AAAA77","Grey",57) " 101
-call s:hifg("Special"        ,"#33AA00","DarkGreen",24) " 7
+call s:hifg("Special"        ,"#33AA00","DarkMagenta",24) " 7
 call s:hifg("Regexp"         ,"#44B4CC","DarkCyan",21) " 74
 call s:hifg("rubyMethod"     ,"#DDE93D","Yellow",77) " 191
 
