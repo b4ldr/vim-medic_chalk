@@ -96,6 +96,7 @@ endif
     "highlight StatusLine ctermbg=43
 "endif
 
+highlight Todo          ctermbg=NONE cterm=bold ctermfg=DarkMagenta
 highlight Ignore        ctermfg=Black
 highlight WildMenu      guifg=Black   guibg=#ffff00 gui=bold ctermfg=Black ctermbg=Yellow cterm=bold
 highlight Cursor        guifg=Black guibg=White ctermfg=Black ctermbg=White
@@ -118,7 +119,7 @@ call s:hibg("Visual"    ,"#555577","LightBlue",83)
 call s:hibg("VisualNOS" ,"#444444","DarkBlue",81)
 highlight WarningMsg    guifg=Red ctermfg=Red
 highlight Error         ctermbg=DarkRed
-highlight SpellBad      ctermfg=Red cterm=underline ctermbg=NONE
+highlight SpellBad      ctermfg=NONE cterm=underline ctermbg=NONE
 " FIXME: Comments
 highlight SpellRare     ctermfg=DarkMagenta cterm=underline ctermbg=NONE
 highlight SpellCap      ctermfg=DarkBlue cterm=underline ctermbg=NONE
