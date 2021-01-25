@@ -17,53 +17,13 @@ endif
 
 let colors_name = "medic_chalk"
 
-" First two functions adapted from inkpot.vim
-
-" map a urxvt cube number to an xterm-256 cube number
-fun! s:M(a)
-    return strpart("0245", a:a, 1) + 0
-endfun
-
-" map a urxvt colour to an xterm-256 colour
-fun! s:X(a)
-    if &t_Co == 88
-        return a:a
-    else
-        if a:a == 8
-            return 237
-        elseif a:a < 16
-            return a:a
-        elseif a:a > 79
-            return 232 + (3 * (a:a - 80))
-        else
-            let l:b = a:a - 16
-            let l:x = l:b % 4
-            let l:y = (l:b / 4) % 4
-            let l:z = (l:b / 16)
-            return 16 + s:M(l:x) + (6 * s:M(l:y)) + (36 * s:M(l:z))
-        endif
-    endif
-endfun
-
-function! s:choose(mediocre,good)
-    if &t_Co != 88 && &t_Co != 256
-        return a:mediocre
-    else
-        return s:X(a:good)
-    endif
-endfunction
-
 function! s:hifg(group,guifg,first,second,...)
-    if a:0 && &t_Co == 256
-        let ctermfg = a:1
-    else
-        let ctermfg = s:choose(a:first,a:second)
-    endif
+    let ctermfg = a:second
     exe "highlight ".a:group." guifg=".a:guifg." ctermfg=".ctermfg
 endfunction
 
 function! s:hibg(group,guibg,first,second)
-    let ctermbg = s:choose(a:first,a:second)
+    let ctermbg = a:second
     exe "highlight ".a:group." guibg=".a:guibg." ctermbg=".ctermbg
 endfunction
 
@@ -84,7 +44,7 @@ hi link diffRemoved             Statement
 hi link diffLine                PreProc
 hi link diffSubname             Comment
 
-call s:hifg("Normal","#BBBBBB","LightGrey",85)
+call s:hifg("Normal","#BBBBBB","LightGrey",250)
 if &background == "light" || has("gui_running")
     hi Normal guibg=Black ctermbg=Black
 else
@@ -106,17 +66,16 @@ highlight Directory     none
 high link Directory     Identifier
 highlight ErrorMsg      guibg=Red ctermbg=DarkRed guifg=NONE ctermfg=NONE
 highlight Search        guifg=NONE ctermfg=NONE gui=none cterm=none
-call s:hibg("Search"    ,"#555555","DarkBlue",81)
+call s:hibg("Search"    ,"#005fd7","DodgerBlue3",26)
 highlight IncSearch     guifg=White guibg=Black ctermfg=White ctermbg=Black
 highlight MoreMsg       guifg=#00AA00 ctermfg=Green
 highlight LineNr        guifg=#DDEEFF ctermfg=White
-call s:hibg("LineNr"    ,"#222222","DarkBlue",80)
 highlight Question      none
 high link Question      MoreMsg
 highlight Title         guifg=Magenta ctermfg=Magenta
 highlight VisualNOS     gui=none cterm=none
-call s:hibg("Visual"    ,"#555577","LightBlue",83)
-call s:hibg("VisualNOS" ,"#444444","DarkBlue",81)
+call s:hibg("Visual"    ,"#87afff","SkyBlue2",111)
+call s:hibg("VisualNOS" ,"#8787ff","LightSlateBlue",105)
 highlight WarningMsg    guifg=Red ctermfg=Red
 highlight Error         ctermbg=DarkRed
 highlight SpellBad      ctermfg=NONE cterm=underline ctermbg=NONE
@@ -125,8 +84,8 @@ highlight SpellRare     ctermfg=DarkMagenta cterm=underline ctermbg=NONE
 highlight SpellCap      ctermfg=DarkBlue cterm=underline ctermbg=NONE
 highlight SpellLocal    ctermfg=DarkCyan cterm=underline ctermbg=NONE
 
-call s:hibg("Folded"    ,"#110077","DarkBlue",17)
-call s:hifg("Folded"    ,"#aaddee","LightCyan",63)
+call s:hibg("Folded"    ,"#005f00","DarkGreen",22)
+call s:hifg("Folded"    ,"#00ffff","Cyan1",51)
 highlight FoldColumn    none
 high link FoldColumn    Folded
 highlight DiffAdd       ctermbg=4 guibg=DarkBlue
@@ -136,12 +95,12 @@ highlight DiffText      ctermbg=DarkRed
 highlight DiffText      cterm=bold ctermbg=9 gui=bold guibg=Red
 
 highlight TabLine       gui=underline cterm=underline
-call s:hifg("TabLine"   ,"#bbbbbb","LightGrey",85)
-call s:hibg("TabLine"   ,"#333333","DarkGrey",80)
+call s:hifg("TabLine"   ,"#BBBBBB","LightGrey",250)
+call s:hibg("TabLine"   ,"#3a3a3a","Grey23",237)
 highlight TabLineSel    guifg=White guibg=Black ctermfg=White ctermbg=Black
 highlight TabLineFill   gui=underline cterm=underline
-call s:hifg("TabLineFill","#bbbbbb","LightGrey",85)
-call s:hibg("TabLineFill","#808080","Grey",83)
+call s:hifg("TabLineFill"   ,"#BBBBBB","LightGrey",250)
+call s:hibg("TabLineFill","#808080","Grey50",244)
 
 hi Type gui=none
 hi Statement gui=none
@@ -150,20 +109,17 @@ if !has("gui_mac")
     hi Comment gui=italic
 endif
 hi Identifier cterm=none
-" Commented numbers at the end are *old* 256 color values
-call s:hifg("Comment"        ,"#9933CC","DarkMagenta",34) " 92
-" 26 instead?
-call s:hifg("Constant"       ,"#339999","DarkCyan",21) " 30
-call s:hifg("String"         ,"#33AA00","DarkMagenta", 24,32) " 7
-"call s:hifg("String"         ,"#66FF00","LightGreen",44,82) " 82
-"call s:hifg("Identifier"     ,"#FFCC00","Yellow",72) " 220
-call s:hifg("Identifier"     ,"#44B4CC","DarkCyan",21) " 213
-call s:hifg("Statement"      ,"#FF6600","Brown",68) " 202
-call s:hifg("PreProc"        ,"#AAFFFF","LightCyan",47) " 213
-call s:hifg("Type"           ,"#AAAA77","Grey",57) " 101
-call s:hifg("Special"        ,"#33AA00","DarkMagenta",24) " 7
-call s:hifg("Regexp"         ,"#44B4CC","DarkCyan",21) " 74
-call s:hifg("rubyMethod"     ,"#DDE93D","Yellow",77) " 191
+call s:hifg("Comment"        ,"#8700d7","DarkViolet",92)
+call s:hifg("Constant"       ,"	#008787","Turquoise4",30)
+call s:hifg("String"         ,"	#800080","Purple", 5)
+call s:hifg("Identifier"     ,"#5f875f","DarkSeaGreen4",65)
+call s:hifg("Function"       ,"#44B4CC","DarkCyan",36)
+call s:hifg("Statement"      ,"#FF6600","Brown",202)
+call s:hifg("PreProc"        ,"#AAFFFF","LightCyan",213)
+call s:hifg("Type"           ,"#AAAA77","Grey",101)
+call s:hifg("Special"        ,"#33AA00","DarkMagenta",7)
+call s:hifg("Regexp"         ,"#44B4CC","DarkCyan",74)
+call s:hifg("rubyMethod"     ,"#DDE93D","Yellow",191)
 
 " My modifications
 
